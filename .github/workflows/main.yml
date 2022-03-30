@@ -17,6 +17,7 @@ jobs:
         uses: redhat-actions/buildah-build@v2
         with:
           image: valheim-container
+          containerfiles: ./Containerfile
           tags: ${{ github.sha }} latest
       
       - name: Podman Login
