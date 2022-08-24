@@ -3,6 +3,8 @@ name: Build and Push Container Image
 on:
   push:
     branches: [ main ]
+  schedule:
+    - cron: '23 5 * * 2'
 
 jobs:
   build:
