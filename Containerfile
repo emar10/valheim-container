@@ -38,8 +38,7 @@ ENV VALHEIM_SERVER_NAME="My Valheim Server" \
     VALHEIM_PASSWORD="youshouldprobablychangethis"
 
 # Expose default ports and volumes
-EXPOSE 2456/udp
-EXPOSE 2457/udp
+EXPOSE 2456-2458/udp
 
 VOLUME [ "/config", "/gamedata" ]
 
