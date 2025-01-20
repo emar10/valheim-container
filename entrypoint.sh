@@ -4,9 +4,9 @@
 set -e
 
 echo Setting up UID/GID ${PUID}/${PGID}...
-groupmod --gid ${PGID} valheim
-usermod --uid ${PUID} valheim
-chown valheim:valheim /gamedata /config
+groupmod --gid ${PGID} steam
+usermod --uid ${PUID} steam
+chown -R steam:steam /gamedata /config /home/steam
 
 echo Applying environment settings to the launch script...
 sed -i "s/VALHEIM_SERVER_NAME/${VALHEIM_SERVER_NAME}/g" /run_valheim.sh
@@ -17,5 +17,4 @@ sed -i "s/VALHEIM_PASSWORD/${VALHEIM_PASSWORD}/g" /run_valheim.sh
 set +e
 
 echo Setup finished, starting server...
-exec gosu valheim /run_valheim.sh
-
+exec gosu steam /run_valheim.sh

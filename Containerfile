@@ -1,6 +1,6 @@
 # Valheim Dedicated Server, Containerized
 
-FROM docker.io/steamcmd/steamcmd:ubuntu
+FROM docker.io/cm2network/steamcmd:root
 
 LABEL maintainer="ethan@emar10.dev"
 
@@ -12,15 +12,8 @@ RUN apt-get update; \
     apt-get install -y gosu; \
     rm -rf /var/lib/apt/lists/*
 
-# Create valheim user
-RUN useradd --uid 1000 \
-            --shell /bin/nologin \
-            --home /home/valheim \
-            --create-home \
-            valheim
-
 # Run steamcmd
-RUN gosu valheim steamcmd +exit
+RUN gosu steam ${STEAMCMDDIR}/steamcmd.sh +exit
 
 # Create directories
 RUN mkdir /config \
