@@ -1,6 +1,6 @@
 # Valheim Dedicated Server, Containerized
 
-FROM docker.io/cm2network/steamcmd:root
+FROM docker.io/cm2network/steamcmd:root-trixie
 
 LABEL maintainer="ethan@emar10.dev"
 
@@ -9,7 +9,7 @@ ENV PGID ${PUID}
 
 # Grab additional dependencies
 RUN apt-get update; \
-    apt-get install -y gosu; \
+    apt-get install -y --no-install-recommends gosu; \
     rm -rf /var/lib/apt/lists/*
 
 # Run steamcmd
@@ -20,8 +20,8 @@ RUN mkdir /config \
           /gamedata
 
 # Copy over scripts
-ADD entrypoint.sh /entrypoint.sh
-ADD run_valheim.sh /run_valheim.sh
+COPY entrypoint.sh /entrypoint.sh
+COPY run_valheim.sh /run_valheim.sh
 RUN chmod +x /entrypoint.sh /run_valheim.sh
 
 # Environment variables
@@ -37,4 +37,3 @@ VOLUME [ "/config", "/gamedata" ]
 
 STOPSIGNAL SIGINT
 ENTRYPOINT [ "/entrypoint.sh" ]
-

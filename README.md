@@ -3,8 +3,8 @@
 A no frills container image to run a dedicated server for
 [Valheim](https://www.valheimgame.com/). The startup script simply uses
 [SteamCMD](https://developer.valvesoftware.com/wiki/SteamCMD) to install/update
-Valheim, then runs the server with options configurable via environment
-variables.
+Valheim, validates the installation, then runs the current stable dedicated
+server with options configurable via environment variables.
 
 Uses [SteamCMD's image](https://github.com/steamcmd/docker) as a base.
 
@@ -84,4 +84,3 @@ volumes:
   ports 2456-2458 must be open in order for the server to work correctly, but
   no further details seem to be available. Based on testing, the public server
   listing seems to be the only feature affected by not having 2458 open.
-
