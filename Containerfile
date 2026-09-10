@@ -4,25 +4,14 @@ FROM docker.io/cm2network/steamcmd:root-trixie
 
 LABEL maintainer="ethan@emar10.dev"
 
-ENV PUID 1000
-ENV PGID ${PUID}
+ENV HOME="${HOMEDIR}"
 
 # Grab additional dependencies
-RUN apt-get update; \
-    apt-get install -y --no-install-recommends gosu; \
-    rm -rf /var/lib/apt/lists/*
+RUN su -s /bin/bash steam -c "${STEAMCMDDIR}/steamcmd.sh +quit"
 
-# Run steamcmd
-RUN gosu steam ${STEAMCMDDIR}/steamcmd.sh +exit
-
-# Create directories
-RUN mkdir /config \
-          /gamedata
-
-# Copy over scripts
-COPY entrypoint.sh /entrypoint.sh
+# Copy over entrypoint
 COPY run_valheim.sh /run_valheim.sh
-RUN chmod +x /entrypoint.sh /run_valheim.sh
+RUN chmod +x /run_valheim.sh
 
 # Environment variables
 ENV VALHEIM_SERVER_NAME="My Valheim Server" \
@@ -36,4 +25,5 @@ EXPOSE 2456-2458/udp
 VOLUME [ "/config", "/gamedata" ]
 
 STOPSIGNAL SIGINT
-ENTRYPOINT [ "/entrypoint.sh" ]
+USER steam
+ENTRYPOINT [ "/run_valheim.sh" ]

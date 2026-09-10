@@ -14,8 +14,6 @@ Uses [SteamCMD's image](https://github.com/steamcmd/docker) as a base.
 
 | Variable | Description | Default |
 | --- | --- | --- |
-| `PUID` | The UID to run as. | `1000` |
-| `PGID` | The GID to run as. | `1000` |
 | `VALHEIM_SERVER_NAME` | The server's name in the server browser. | `"My Valheim Server"` |
 | `VALHEIM_WORLD_NAME` | The world name to generate/use. | `"world"` |
 | `VALHEIM_PORT` | The base port to use (see **Ports** below). | `2456` |
@@ -40,6 +38,11 @@ for Steam A2S.
 | `/config` | Persistent server data (admins, bans, worlds, etc.) |
 | `/gamedata` | Server package is stored here. Mount this to avoid redownloading the game if the container is recreated. |
 
+### User
+
+The server runs as the image's unprivileged `steam` user. If overriding the
+container user (or if migrating from an older image version using `$PUID`),
+bind-mounted directories must be writable by the chosen UID/GID.
 
 ## Examples
 

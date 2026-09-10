@@ -15,6 +15,7 @@ cd /gamedata
 export LD_LIBRARY_PATH=/gamedata/linux64${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
 export SteamAppId=892970
 
+echo Launching valheim_server...
 exec /gamedata/valheim_server.x86_64 -nographics -batchmode \
   -name "${VALHEIM_SERVER_NAME}" \
   -port "${VALHEIM_PORT}" \
